@@ -90,6 +90,7 @@ if __name__ == "__main__" :
     
     # get user selection
     try :
+        
         selection = int(input("\nEnter file number to decrypt: ")) - 1
 
         if selection < 0 or selection >= len(text_files) :
