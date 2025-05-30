@@ -119,7 +119,7 @@ if __name__ == "__main__" :
     # get user selection
     try :
 
-        selection = selection = int(input("\nEnter folder number to encrypt: ")) - 1
+        selection = selection = int(input("\nEnter folder number to decrypt: ")) - 1
 
         if selection < 0 or selection >= len(folders):
             raise ValueError
