@@ -1,6 +1,11 @@
 # update / review to make sure .gitignore works
-# Prerequisites
+
+# Prerequisites (Project Specific)
 *.d
+*.jpg
+*.png
+*.txt
+*.bmp
 
 # Object files
 *.o

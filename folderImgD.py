@@ -7,7 +7,10 @@ import re
 from PIL import Image
 
 # Hardcoded variables
-DIRECTORY = "E:\\"
+VALID_DIRECTORIES = [
+    "E:\\", 
+    "/run/media/whoshotnate/PERSONAL3"
+]
 
 # --- Helper Functions --- #
 
@@ -67,15 +70,41 @@ def decrypt_text_to_image(text_path, output_image_path) :
     # save the reconstructed image
     img.save(output_image_path, quality=100) # high quality output
     os.remove(text_path)  # remove original .txt
-    print(f"Image decrypted and saved to : {output_image_path}")
+    print(f"Image D&^S to : {output_image_path}")
 
 # --- Main Entry Point --- #
 
 if __name__ == "__main__" :
 
+    # filter for existing directories
+    existing_dirs = [d for d in VALID_DIRECTORIES if os.path.exists(d)]
+    
+    if not existing_dirs:
+        print("ERROR: No valid directories found from the hardcoded list.")
+        exit()
+
+    # directory selection menu
+    print("\nAvailable base directories:")
+    for i, directory in enumerate(existing_dirs):
+        print(f"{i+1}. {directory}")
+    
+    try :
+    
+        dir_choice = int(input("\nSelect base directory number: ")) - 1
+        
+        if dir_choice < 0 or dir_choice >= len(existing_dirs):
+            raise ValueError
+            
+        base_dir = existing_dirs[dir_choice]
+        
+    except ValueError :
+
+        print("Invalid directory selection.")
+        exit()
+
     # get all folders in hardcoded directory
-    folders = [f for f in os.listdir(DIRECTORY) 
-              if os.path.isdir(os.path.join(DIRECTORY, f))]
+    folders = [f for f in os.listdir(base_dir) 
+              if os.path.isdir(os.path.join(base_dir, f))]
     folders.sort(key=natural_sort_key)
 
     if not folders : 
@@ -101,7 +130,7 @@ if __name__ == "__main__" :
 
     # process selected folder
     selected_folder = folders[selection]
-    folder_path = os.path.join(DIRECTORY, selected_folder)
+    folder_path = os.path.join(base_dir, selected_folder)
 
     # get all .txt files in folder
     text_files = [f for f in os.listdir(folder_path) 
