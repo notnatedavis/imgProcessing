@@ -8,8 +8,9 @@ from PIL import Image
 
 # Hardcoded variables
 VALID_DIRECTORIES = [
-    "E:\\", 
-    "/run/media/whoshotnate/PERSONAL3"
+    "E:\\", # Windows
+    "/run/media/whoshotnate/PERSONAL3", # Linux
+    "/Volumes/PERSONAL3" # Mac
 ]
 
 # --- Helper Functions --- #
@@ -141,7 +142,7 @@ if __name__ == "__main__" :
         exit()
     
     # process each text file
-    for txt_file in text_files:
+    for txt_file in text_files :
         txt_path = os.path.join(folder_path, txt_file)
         output_filename = os.path.splitext(txt_file)[0] + ".jpg"
         output_path = os.path.join(folder_path, output_filename)
