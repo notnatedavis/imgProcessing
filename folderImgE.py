@@ -8,8 +8,9 @@ from PIL import Image
 
 # Hardcoded variables
 VALID_DIRECTORIES = [
-    "E:\\", 
-    "/run/media/whoshotnate/PERSONAL3"
+    "E:\\", # Windows
+    "/run/media/whoshotnate/PERSONAL3", # Linux
+    "/Volumes/PERSONAL3" # Mac
 ]
 
 # --- Helper Functions --- #
@@ -80,7 +81,7 @@ if __name__ == "__main__" :
 
     # directory selection menu
     print("\nAvailable base directories:")
-    for i, directory in enumerate(existing_dirs):
+    for i, directory in enumerate(existing_dirs) :
         print(f"{i+1}. {directory}")
     
     try :
@@ -108,7 +109,7 @@ if __name__ == "__main__" :
 
     # display folder selection menu
     print("Available folders:")
-    for i, foldername in enumerate(folders):
+    for i, foldername in enumerate(folders) :
         print(f"{i+1}. {foldername}")
     
     # get user selection
@@ -116,7 +117,7 @@ if __name__ == "__main__" :
 
         selection = selection = int(input("\nEnter folder number to encrypt: ")) - 1
 
-        if selection < 0 or selection >= len(folders):
+        if selection < 0 or selection >= len(folders) :
             raise ValueError
     
     except ValueError :
@@ -136,7 +137,7 @@ if __name__ == "__main__" :
         exit()
 
     # Process each image
-    for img_file in image_files:
+    for img_file in image_files :
         img_path = os.path.join(folder_path, img_file)
         output_filename = os.path.splitext(img_file)[0] + ".txt"
         output_path = os.path.join(folder_path, output_filename)
