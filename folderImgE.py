@@ -1,6 +1,8 @@
 # --- folderImgE.py --- #
 # encrypts image(s) into .txt files (specific format) within same directory of folder
 
+# notes : I want to clean up comments + prints + format
+
 # --- Imports --- #
 import os
 import re
@@ -72,10 +74,12 @@ def encrypt_image_to_text(image_path, output_text_path) :
 
 if __name__ == "__main__" :
 
+    # --- 1. Directory Selection --- #
+
     # filter for existing directories
     existing_dirs = [d for d in VALID_DIRECTORIES if os.path.exists(d)]
     
-    if not existing_dirs:
+    if not existing_dirs :
         print("ERROR: No valid directories found from the hardcoded list.")
         exit()
 
@@ -85,7 +89,6 @@ if __name__ == "__main__" :
         print(f"{i+1}. {directory}")
     
     try :
-    
         dir_choice = int(input("\nSelect base directory number: ")) - 1
         
         if dir_choice < 0 or dir_choice >= len(existing_dirs):
@@ -94,13 +97,14 @@ if __name__ == "__main__" :
         base_dir = existing_dirs[dir_choice]
         
     except ValueError :
-
         print("Invalid directory selection.")
         exit()
+
+    # --- 2. Folder Selection --- #
         
     # get all folders in hardcoded directory
-    folders = [f for f in os.listdir(base_dir) 
-              if os.path.isdir(os.path.join(base_dir, f))]
+    folders = [f for f in os.listdir(base_dir)
+        if os.path.isdir(os.path.join(base_dir, f))]
     folders.sort(key=natural_sort_key)
 
     if not folders : 
@@ -114,7 +118,6 @@ if __name__ == "__main__" :
     
     # get user selection
     try :
-
         selection = selection = int(input("\nEnter folder number to encrypt: ")) - 1
 
         if selection < 0 or selection >= len(folders) :
@@ -129,8 +132,10 @@ if __name__ == "__main__" :
     folder_path = os.path.join(base_dir, selected_folder)
 
     # get all image files in folder
-    image_files = [f for f in os.listdir(folder_path) 
-                  if f.lower().endswith(('.jpg', '.png', '.bmp'))]
+    image_files = [f for f in os.listdir(folder_path)
+        if f.lower().endswith(('.jpg', '.png', '.bmp'))]
+
+    image_files.sort(key=natural_sort_key) # (natural) sort files
     
     if not image_files :
         print("No images found in selected folder.")

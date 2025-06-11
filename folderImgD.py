@@ -1,6 +1,8 @@
 # --- folderImgD.py --- #
 # decrypts .txt(s) into images (specific format) within same directory of folder
 
+# notes : I want to clean up comments + prints + format
+
 # --- Imports --- #
 import os
 import re
@@ -70,12 +72,14 @@ def decrypt_text_to_image(text_path, output_image_path) :
     
     # save the reconstructed image
     img.save(output_image_path, quality=100) # high quality output
-    os.remove(text_path)  # remove original .txt
+    os.remove(text_path) # remove original .txt
     print(f"Image D&^S to : {output_image_path}")
 
 # --- Main Entry Point --- #
 
 if __name__ == "__main__" :
+
+    # --- 1. Directory Selection --- #
 
     # filter for existing directories
     existing_dirs = [d for d in VALID_DIRECTORIES if os.path.exists(d)]
@@ -90,18 +94,18 @@ if __name__ == "__main__" :
         print(f"{i+1}. {directory}")
     
     try :
-    
         dir_choice = int(input("\nSelect base directory number: ")) - 1
         
-        if dir_choice < 0 or dir_choice >= len(existing_dirs):
+        if dir_choice < 0 or dir_choice >= len(existing_dirs) :
             raise ValueError
             
         base_dir = existing_dirs[dir_choice]
         
     except ValueError :
-
         print("Invalid directory selection.")
         exit()
+
+    # --- 2. Folder Selection --- #
 
     # get all folders in hardcoded directory
     folders = [f for f in os.listdir(base_dir) 
@@ -114,12 +118,11 @@ if __name__ == "__main__" :
 
     # display folder selection menu
     print("Available folders:")
-    for i, foldername in enumerate(folders):
+    for i, foldername in enumerate(folders) :
         print(f"{i+1}. {foldername}")
     
     # get user selection
     try :
-
         selection = selection = int(input("\nEnter folder number to decrypt: ")) - 1
 
         if selection < 0 or selection >= len(folders):
