@@ -107,9 +107,14 @@ if __name__ == "__main__" :
 
     # --- 2. Folder Selection --- #
 
+    # set of folders to ignore
+    IGNORE = {"System Volume Information"}
+
     # get all folders in hardcoded directory
-    folders = [f for f in os.listdir(base_dir) 
-              if os.path.isdir(os.path.join(base_dir, f))]
+    folders = [f for f in os.listdir(base_dir)
+               if os.path.isdir(os.path.join(base_dir, f))
+               and not f.startswith('.') # skip .*
+               and f not in IGNORE] # skip predefined
     folders.sort(key=natural_sort_key)
 
     if not folders : 
@@ -137,9 +142,12 @@ if __name__ == "__main__" :
     folder_path = os.path.join(base_dir, selected_folder)
 
     # get all .txt files in folder
-    text_files = [f for f in os.listdir(folder_path) 
-                 if f.lower().endswith('.txt')]
-    
+    text_files = [
+        f for f in os.listdir(folder_path)
+        if f.lower().endswith('.txt')
+           and not f.startswith('.')
+    ]
+    text_files.sort(key=natural_sort_key)
     if not text_files :
         print("No text files found in selected folder.")
         exit()
@@ -147,10 +155,10 @@ if __name__ == "__main__" :
     # process each text file
     for txt_file in text_files :
         txt_path = os.path.join(folder_path, txt_file)
-        output_filename = os.path.splitext(txt_file)[0] + ".jpg"
-        output_path = os.path.join(folder_path, output_filename)
-        
-        decrypt_text_to_image(txt_path, output_path)
+        out = os.path.splitext(txt_file)[0] + ".jpg"
+
+        decrypt_text_to_image(txt_path, os.path.join(folder_path, out))
         # print(f"Decrypted and removed: {txt_file} -> {output_filename}")
     
     print("\nAll .txt(s) within folder decrypted")
+    
