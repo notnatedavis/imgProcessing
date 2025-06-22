@@ -101,10 +101,15 @@ if __name__ == "__main__" :
         exit()
 
     # --- 2. Folder Selection --- #
+
+    # set of folders to ignore
+    IGNORE = {"System Volume Information"}
         
     # get all folders in hardcoded directory
     folders = [f for f in os.listdir(base_dir)
-        if os.path.isdir(os.path.join(base_dir, f))]
+               if os.path.isdir(os.path.join(base_dir, f))
+               and not f.startswith('.') # skip .*
+               and f not in IGNORE] # skip predefined
     folders.sort(key=natural_sort_key)
 
     if not folders : 
@@ -132,8 +137,11 @@ if __name__ == "__main__" :
     folder_path = os.path.join(base_dir, selected_folder)
 
     # get all image files in folder
-    image_files = [f for f in os.listdir(folder_path)
-        if f.lower().endswith(('.jpg', '.png', '.bmp'))]
+    image_files = [
+        f for f in os.listdir(folder_path)
+        if not f.startswith('.')
+           and f.lower().endswith(('.jpg', '.png', '.bmp'))
+    ]
 
     image_files.sort(key=natural_sort_key) # (natural) sort files
     
@@ -144,10 +152,9 @@ if __name__ == "__main__" :
     # Process each image
     for img_file in image_files :
         img_path = os.path.join(folder_path, img_file)
-        output_filename = os.path.splitext(img_file)[0] + ".txt"
-        output_path = os.path.join(folder_path, output_filename)
-        
-        encrypt_image_to_text(img_path, output_path)
+        out = os.path.splitext(img_file)[0] + ".txt"
+
+        encrypt_image_to_text(img_path, os.path.join(folder_path, out))
         # print(f"Encrypted and removed: {img_file} -> {output_filename}")
     
     print("\nAll images within folder encrypted")
