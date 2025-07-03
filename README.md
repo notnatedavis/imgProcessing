@@ -27,8 +27,16 @@ This is a repository containing a multitude of python programs for a variety of 
 - UPDATE
 
 ## Usage
-
 (Execution steps here)
+
+_Asahi Linux (Fedora)_
+1. `x`
+
+_Windows_
+1. `x`
+
+_MacOS_
+1. `x`
 
 ## Additional-Info
 
