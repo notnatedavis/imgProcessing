@@ -1,4 +1,4 @@
-# Installation Scripts
+# Image Processing
 
 This is a repository containing a multitude of python programs for a variety of use cases regarding processing img file(s).
 
