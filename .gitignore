@@ -1,6 +1,7 @@
 # update / review to make sure .gitignore works
 
 # Prerequisites (Project Specific)
+*.DS_Store
 *.d
 *.jpg
 *.png
