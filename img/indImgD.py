@@ -10,7 +10,7 @@ from PIL import Image
 
 # Hardcoded variables
 VALID_DIRECTORIES = [
-    "E:\\", # Windows
+    "D:\\", # Windows
     "/run/media/whoshotnate/PERSONAL3", # Linux
     "/Volumes/PERSONAL3", # Mac
     "/Volumes/Macintosh HD/Users/User/Directory" # personal local custom directory
