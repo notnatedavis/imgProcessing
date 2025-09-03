@@ -11,7 +11,8 @@ import re
 # Hardcoded variables
 # location of img(s)
 IMG_DIRECTORIES = [
-    "D:\\pythonTemplate" # Windows
+    "C:\\Users\\davis\\OneDrive\\Desktop\\everything\\photos", # Windows
+    "/Volumes/Macintosh HD/Users/User/Directory" # personal local custom directory
 ]
 
 # --- Helper Functions --- #
@@ -25,11 +26,12 @@ def natural_sort_key(s) :
 def crop_img(image, ratio="1:1") :
     width, height = image.size
 
-    if ratio == "1:1" :
-        # square crop (centered)
+    if ratio == "1:1" : # square crop (centered)
         side = min(width, height)
+
         left = (width - side) // 2
-        top = height - side // 2
+        top = (height - side) // 2
+
         right = left + side
         bottom = top + side
 
@@ -206,6 +208,6 @@ if __name__ == "__main__" :
     with Image.open(image_path) as img:
         cropped = crop_img(img, ratio)
         final_image = draw_lines(cropped, color)
-        output_path = os.path.join(folder_path, f"processed_{selected_file}")
+        output_path = os.path.join(folder_path, f"xxx_{selected_file}")
         final_image.save(output_path)
         print(f"\nImage saved as: {output_path}")
