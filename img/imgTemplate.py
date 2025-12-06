@@ -11,7 +11,7 @@ import re
 # Hardcoded variables
 # location of img(s)
 IMG_DIRECTORIES = [
-    "C:\\Users\\davis\\OneDrive\\Desktop\\everything\\photos\\art", # Windows
+    "C:\\Users\\davis\\OneDrive\\Desktop\\everything\\photos", # Windows
     "/Volumes/Macintosh HD/Users/User/Directory" # personal local custom directory
 ]
 
