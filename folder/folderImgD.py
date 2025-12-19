@@ -10,10 +10,11 @@ from PIL import Image
 
 # Hardcoded variables
 VALID_DIRECTORIES = [
-    "D:\\", # Windows 11
+    "D:\\", # Windows Ejectable Drive
     "/run/media/whoshotnate/PERSONAL3", # Linux
     "/Volumes/PERSONAL3", # Mac
-    "/Volumes/Macintosh HD/Users/User/Directory" # personal local custom directory
+    "/Volumes/Macintosh HD/Users/User/Directory", # personal local custom directory
+    "C:\\Users\\davis\\OneDrive\\Desktop\\everything\\games\\DolphinEmulator\\etc\\" # personal local custom
 ]
 
 # --- Helper Functions --- #

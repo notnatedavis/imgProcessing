@@ -13,7 +13,8 @@ VALID_DIRECTORIES = [
     "D:\\", # Windows
     "/run/media/whoshotnate/PERSONAL3", # Linux
     "/Volumes/PERSONAL3", # Mac
-    "/Volumes/Macintosh HD/Users/User/Directory" # personal local custom directory
+    "/Volumes/Macintosh HD/Users/User/Directory", # personal local custom directory
+    "C:\\Users\\davis\\OneDrive\\Desktop\\everything\\games\\DolphinEmulator\\etc\\" # personal local custom
 ]
 
 # --- Helper Functions --- #
