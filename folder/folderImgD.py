@@ -1,5 +1,6 @@
 # --- folderImgD.py --- #
 # decrypts .txt(s) into images (specific format) within same directory of folder
+# Now validates that decrypted dimensions are divisible by 4 for compatibility
 
 # notes : I want to clean up comments + prints + format
 
@@ -14,8 +15,12 @@ VALID_DIRECTORIES = [
     "/run/media/whoshotnate/PERSONAL3", # Linux
     "/Volumes/PERSONAL3", # Mac
     "/Volumes/Macintosh HD/Users/User/Directory", # personal local custom directory
+    "/Users/whoshotnate/Desktop/everything/games/DolphinEmulator/etc",
     "C:\\Users\\davis\\OneDrive\\Desktop\\everything\\games\\DolphinEmulator\\etc\\" # personal local custom
 ]
+
+# Grid configuration for validation
+GRID_DIVISOR = 4  # Validate dimensions are divisible by 4
 
 # --- Helper Functions --- #
 
@@ -24,6 +29,15 @@ def natural_sort_key(s) :
     # Ex. ['a10.jpg', 'a2.jpg'] -> ['a2.jpg', 'a10.jpg']
     return [int(part) if part.isdigit() else part.lower() 
             for part in re.split('([0-9]+)', s)]
+
+def validate_dimensions(width, height) :
+    # validate that dimensions are divisible by GRID_DIVISOR
+    # Returns : (is_valid, message)
+    
+    if width % GRID_DIVISOR == 0 and height % GRID_DIVISOR == 0 :
+        return True, f"Valid: {width}x{height} divisible by {GRID_DIVISOR}"
+    else :
+        return False, f"Warning: {width}x{height} not divisible by {GRID_DIVISOR}"
 
 def encrypted_string_to_value(encrypted_str) :
     # extract the character and digit
@@ -56,6 +70,13 @@ def decrypt_text_to_image(text_path, output_image_path) :
     # determine the image dimensions
     height = len(lines)
     width = len(lines[0].strip().split()) # number of pixels in the 1st row
+    
+    # Validate dimensions
+    is_valid, validation_msg = validate_dimensions(width, height)
+    print(f"  {validation_msg}")
+    
+    if not is_valid:
+        print(f"  Warning: This image may not be compatible with spatial shuffle operations")
 
     # create new image
     img = Image.new('RGB', (width, height))
@@ -75,7 +96,7 @@ def decrypt_text_to_image(text_path, output_image_path) :
     # save the reconstructed image
     img.save(output_image_path, quality=100) # high quality output
     os.remove(text_path) # remove original .txt
-    print(f"Image D&^S to : {output_image_path}")
+    print(f"  Decrypted to: {os.path.basename(output_image_path)}")
 
 # --- Main Entry Point --- #
 
@@ -130,7 +151,7 @@ if __name__ == "__main__" :
     
     # get user selection
     try :
-        selection = selection = int(input("\nEnter folder number to decrypt: ")) - 1
+        selection = int(input("\nEnter folder number to decrypt: ")) - 1
 
         if selection < 0 or selection >= len(folders):
             raise ValueError
@@ -153,6 +174,9 @@ if __name__ == "__main__" :
     if not text_files :
         print("No text files found in selected folder.")
         exit()
+
+    print(f"\nGrid compatibility: Validating dimensions divisible by {GRID_DIVISOR}")
+    print("Starting decryption process...\n")
     
     # process each text file
     for txt_file in text_files :
@@ -160,7 +184,5 @@ if __name__ == "__main__" :
         out = os.path.splitext(txt_file)[0] + ".jpg"
 
         decrypt_text_to_image(txt_path, os.path.join(folder_path, out))
-        # print(f"Decrypted and removed: {txt_file} -> {output_filename}")
     
     print("\nAll .txt(s) within folder decrypted")
-    
